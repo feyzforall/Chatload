@@ -1,4 +1,5 @@
 import 'package:chatload/constants/app_strings.dart';
+import 'package:chatload/env/env.dart';
 import 'package:chatload/model/chat_message.dart';
 import 'package:chatload/view-model/chat_view_model.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +22,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
+    String apiKey = Env.key;
+    print(Env.key);
     chatFieldController = TextEditingController();
     _openAI = OpenAI.instance.build(
-      token: "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",
+      token: apiKey,
       baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)),
-      enableLog: true,
     );
     super.initState();
   }
