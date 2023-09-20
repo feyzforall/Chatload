@@ -39,7 +39,5 @@ class AppNameView extends StatelessWidget {
         ],
       ),
     );
-
-    // );
   }
 }

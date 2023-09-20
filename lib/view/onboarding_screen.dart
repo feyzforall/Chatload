@@ -1,4 +1,6 @@
 import 'package:chatload/constants/app_colors.dart';
+import 'package:chatload/constants/app_strings.dart';
+import 'package:chatload/view/chat_screen.dart';
 import 'package:chatload/view/common_widgets/app_name_view.dart';
 import 'package:flutter/material.dart';
 
@@ -36,14 +38,14 @@ class HeadlineText extends StatelessWidget {
       right: 10,
       child: RichText(
         text: TextSpan(
-          text: 'AI ',
+          text: AppStrings.ai,
           style: Theme.of(context).textTheme.displayLarge?.copyWith(
                 color: AppColors.frenchPass,
                 fontWeight: FontWeight.bold,
               ),
           children: const [
             TextSpan(
-              text: 'Chatbot Case',
+              text: AppStrings.chatbotCase,
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -68,7 +70,7 @@ class DescriptionText extends StatelessWidget {
       left: 10,
       right: 10,
       child: Text(
-        "We've trained a model called ChatGPT which interacts in a conversational way.",
+        AppStrings.description,
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: Colors.white,
@@ -93,8 +95,14 @@ class ContinueButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: 60,
         child: ElevatedButton(
-          onPressed: () {},
-          child: const Text('Continue'),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const ChatScreen(),
+              ),
+            );
+          },
+          child: const Text(AppStrings.cont),
         ),
       ),
     );
