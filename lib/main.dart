@@ -1,4 +1,5 @@
 import 'package:chatload/constants/app_strings.dart';
+import 'package:chatload/constants/app_theme.dart';
 import 'package:chatload/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: appTheme,
       title: AppStrings.appName,
       home: SplashScreen(),
     );

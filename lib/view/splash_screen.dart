@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:chatload/constants/app_colors.dart';
-import 'package:chatload/constants/app_strings.dart';
+import 'package:chatload/view/common_widgets/app_name_view.dart';
 import 'package:chatload/view/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -28,27 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
+    return const Scaffold(
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              AppStrings.chat,
-              style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    color: AppColors.frenchPass,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            Text(
-              AppStrings.load,
-              style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-          ],
+        child: AppNameView(
+          appNameType: AppNameType.body,
         ),
       ),
     );
