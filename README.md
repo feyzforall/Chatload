@@ -1,16 +1,20 @@
-# chatload
+# Chatload
 
-"A new Flutter project."
+Chat with GPT.
 
-## Getting Started
+## Libraries
+  -MobX: State Management <br>
+  -Hive: Local Storage <br>
+  -Envied: Only I can see my api keys <br>
+  -Uuid: Generate generate generate id. <br>
+  -Flutter_launcher_icons: Launch app icon for me, thx. <br>
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## How You Can Start This App
+  Add a .env file at the root of the project <br>
+  Paste your ChatGPT api key this format => KEY= < your-key > <br>
+  Run these commands in sequence: <br>
+    "flutter pub run build_runner build"  <br>
+    "flutter run" <br>
+  Probably it would be work. <br>
+  
+  
