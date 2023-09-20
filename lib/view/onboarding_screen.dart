@@ -1,7 +1,7 @@
-import 'package:chatload/constants/app_colors.dart';
-import 'package:chatload/constants/app_strings.dart';
-import 'package:chatload/view/chat_screen.dart';
-import 'package:chatload/view/common_widgets/app_name_view.dart';
+import '../constants/app_colors.dart';
+import '../constants/app_strings.dart';
+import 'chat_screen.dart';
+import 'common_widgets/app_name_view.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatelessWidget {

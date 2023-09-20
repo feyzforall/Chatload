@@ -1,5 +1,5 @@
-import 'package:chatload/constants/app_colors.dart';
-import 'package:chatload/constants/app_strings.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_strings.dart';
 import 'package:flutter/material.dart';
 
 enum AppNameType { appbar, body }

@@ -1,9 +1,17 @@
-import 'package:chatload/constants/app_strings.dart';
-import 'package:chatload/constants/app_theme.dart';
-import 'package:chatload/view/splash_screen.dart';
+import 'constants/app_strings.dart';
+import 'constants/app_theme.dart';
+import 'model/chat_message.dart';
+import 'repository/boxes.dart';
+import 'view/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  await Hive.initFlutter();
+  Hive.openBox(Boxes.boxKeys);
+  Hive.registerAdapter(ChatMessageAdapter());
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme,
       title: AppStrings.appName,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

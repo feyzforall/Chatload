@@ -1,5 +1,6 @@
-import 'package:chatload/constants/app_colors.dart';
-import 'package:chatload/model/chat_message.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/sender.dart';
+import '../../model/chat_message.dart';
 import 'package:flutter/material.dart';
 
 class MessageView extends StatelessWidget {
@@ -12,13 +13,13 @@ class MessageView extends StatelessWidget {
     return ListTile(
       isThreeLine: true,
       leading: CircleAvatar(
-        backgroundColor: chatMessage.sender == Sender.bot ? AppColors.frenchPass : Colors.blue,
+        backgroundColor: chatMessage.sender == Sender.bot.title ? AppColors.frenchPass : Colors.blue,
         child: Text(
-          chatMessage.sender == Sender.bot ? 'CL' : 'Y',
+          chatMessage.sender == Sender.bot.title ? 'CL' : 'Y',
         ),
       ),
       title: Text(
-        chatMessage.sender.title,
+        chatMessage.sender,
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,

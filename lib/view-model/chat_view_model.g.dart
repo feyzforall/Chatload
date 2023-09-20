@@ -29,11 +29,12 @@ mixin _$ChatViewModel on _ChatViewModelBase, Store {
       ActionController(name: '_ChatViewModelBase', context: context);
 
   @override
-  void sendMessage(String message, Sender sender, OpenAI openAI) {
+  void sendMessage(
+      String message, Sender sender, OpenAI openAI, String chatId) {
     final _$actionInfo = _$_ChatViewModelBaseActionController.startAction(
         name: '_ChatViewModelBase.sendMessage');
     try {
-      return super.sendMessage(message, sender, openAI);
+      return super.sendMessage(message, sender, openAI, chatId);
     } finally {
       _$_ChatViewModelBaseActionController.endAction(_$actionInfo);
     }

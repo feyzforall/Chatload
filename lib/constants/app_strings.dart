@@ -9,4 +9,5 @@ class AppStrings {
   static const String description = "We've trained a model called ChatGPT which interacts in a conversational way.";
   static const String chatbot = 'ChatBot';
   static const String cont = 'Continue';
+  static const String history = 'History';
 }

@@ -1,7 +1,9 @@
-import 'package:chatload/constants/app_strings.dart';
-import 'package:chatload/env/env.dart';
-import 'package:chatload/model/chat_message.dart';
-import 'package:chatload/view-model/chat_view_model.dart';
+import '../constants/app_strings.dart';
+import '../constants/sender.dart';
+import '../env/env.dart';
+import '../repository/chat_repository.dart';
+import '../view-model/chat_view_model.dart';
+import 'history_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -15,26 +17,32 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  late TextEditingController chatFieldController;
-  final ChatViewModel viewModel = ChatViewModel();
+  late TextEditingController controller;
+  final ChatRepository chatRepository = ChatRepository();
+  final ChatViewModel viewModel = ChatViewModel(
+    chatRepository: ChatRepository(),
+  );
 
   OpenAI? _openAI;
+  late String chatId;
 
   @override
   void initState() {
     String apiKey = Env.key;
-    print(Env.key);
-    chatFieldController = TextEditingController();
+    controller = TextEditingController();
     _openAI = OpenAI.instance.build(
       token: apiKey,
       baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)),
     );
+    chatId = chatRepository.createChat();
+    chatRepository.initBox(chatId);
+    chatRepository.openAllBoxes();
     super.initState();
   }
 
   @override
   void dispose() {
-    chatFieldController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -43,6 +51,16 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.chatbot),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const HistoryScreen(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.history_outlined),
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -60,10 +78,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   );
                 }),
               ),
-              ChatField(
-                controller: chatFieldController,
+              EnterMessageField(
+                controller: controller,
                 viewModel: viewModel,
                 openAI: _openAI!,
+                chatId: chatId,
               ),
             ],
           ),
@@ -73,29 +92,29 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
-class ChatField extends StatelessWidget {
-  const ChatField({
+class EnterMessageField extends StatelessWidget {
+  const EnterMessageField({
     super.key,
     required this.controller,
     required this.viewModel,
     required this.openAI,
+    required this.chatId,
   });
 
   final TextEditingController controller;
   final ChatViewModel viewModel;
   final OpenAI openAI;
+  final String chatId;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
       onSubmitted: (value) {
-        viewModel.sendMessage(
-          controller.text,
-          Sender.person,
-          openAI,
-        );
-        controller.clear();
+        if (controller.text.isNotEmpty) {
+          viewModel.sendMessage(controller.text, Sender.person, openAI, chatId);
+          controller.clear();
+        }
       },
       style: const TextStyle(
         color: Colors.white,
@@ -111,12 +130,10 @@ class ChatField extends StatelessWidget {
             ),
             child: IconButton(
               onPressed: () {
-                viewModel.sendMessage(
-                  controller.text,
-                  Sender.person,
-                  openAI,
-                );
-                controller.clear();
+                if (controller.text.isNotEmpty) {
+                  viewModel.sendMessage(controller.text, Sender.person, openAI, chatId);
+                  controller.clear();
+                }
               },
               icon: const Icon(Icons.arrow_forward_ios_outlined),
             ),
