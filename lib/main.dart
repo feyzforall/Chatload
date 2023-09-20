@@ -9,7 +9,7 @@ import 'view/splash_screen.dart';
 
 void main() async {
   await Hive.initFlutter();
-  Hive.openBox(Boxes.boxKeys);
+  Hive.openBox(Boxes.chats);
   Hive.openBox(Boxes.showOnboarding);
 
   Hive.registerAdapter(ChatMessageAdapter());

@@ -1,9 +1,14 @@
-import 'app_colors.dart';
 import 'package:flutter/material.dart';
+
+import 'app_colors.dart';
 
 ThemeData appTheme = ThemeData(
   primaryColor: AppColors.frenchPass,
   scaffoldBackgroundColor: Colors.black,
+  tabBarTheme: TabBarTheme(
+    labelColor: AppColors.frenchPass,
+    indicatorColor: Colors.white,
+  ),
   textSelectionTheme: const TextSelectionThemeData(
     cursorColor: AppColors.frenchPass,
   ),

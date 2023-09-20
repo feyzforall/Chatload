@@ -1,9 +1,11 @@
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:mobx/mobx.dart';
+
 import '../constants/sender.dart';
 import '../model/chat_message.dart';
 import '../repository/chat_repository.dart';
 import '../view/common_widgets/message_view.dart';
-import 'package:mobx/mobx.dart';
+
 part 'chat_view_model.g.dart';
 
 // ignore: library_private_types_in_public_api
@@ -49,6 +51,7 @@ abstract class _ChatViewModelBase with Store {
     // ChatGPT Response
     openAI.onChatCompletion(request: request).then(
       (value) {
+        print(request.stop);
         ChatMessage chatMessage = ChatMessage(
           sender: Sender.bot.title,
           message: value!.choices[0].message!.content,

@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../constants/boxes.dart';
-import 'chat_screen.dart';
+import 'chat/chat_screen.dart';
 import 'common_widgets/app_name_view.dart';
 
 class OnboardingScreen extends StatelessWidget {

@@ -12,7 +12,7 @@ class ChatRepository {
   String createChat() {
     final id = _uuid.v1();
     // The unique keys to be generated for each conversation are added to this box for later use.
-    Hive.box(Boxes.boxKeys).add(id);
+    Hive.box(Boxes.chats).add(id);
 
     return id;
   }
@@ -23,7 +23,7 @@ class ChatRepository {
 
   /// Function used to open the boxes where the recorded conversations are kept.
   void openAllBoxes() {
-    final Box box = Hive.box(Boxes.boxKeys);
+    final Box box = Hive.box(Boxes.chats);
     for (var i = 0; i < box.length; i++) {
       Hive.openBox(box.getAt(i));
     }

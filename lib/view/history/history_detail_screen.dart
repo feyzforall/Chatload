@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../constants/app_strings.dart';
-import '../model/chat_message.dart';
-import 'common_widgets/message_view.dart';
+import '../../constants/app_strings.dart';
+import '../../model/chat_message.dart';
+import '../common_widgets/message_view.dart';
 
 class HistoryDetailScreen extends StatelessWidget {
   const HistoryDetailScreen({super.key, required this.boxKey});

@@ -10,4 +10,5 @@ class AppStrings {
   static const String chatbot = 'ChatBot';
   static const String cont = 'Continue';
   static const String history = 'History';
+  static const String message = 'Message';
 }
