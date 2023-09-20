@@ -41,7 +41,9 @@ class HistoryScreen extends StatelessWidget {
                     ),
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => HistoryDetailScreen(boxKey: chats.getAt(index)),
+                        builder: (context) => HistoryDetailScreen(
+                          boxKey: chats.getAt(index),
+                        ),
                       ),
                     ),
                   );
