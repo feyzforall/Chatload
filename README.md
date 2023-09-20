@@ -3,11 +3,11 @@
 Chat with GPT.
 
 ## Libraries
-  -MobX: State Management__
-  -Hive: Local Storage__
-  -Envied: Only I can see my api keys__
-  -Uuid: Generate generate generate id.__
-  -Flutter_launcher_icons: Launch app icon for me, thx.__
+  -MobX: State Management <br>
+  -Hive: Local Storage <br>
+  -Envied: Only I can see my api keys <br>
+  -Uuid: Generate generate generate id. <br>
+  -Flutter_launcher_icons: Launch app icon for me, thx. <br>
 
 ## How You Can Start This App
   Add a .env file at the root of the project
