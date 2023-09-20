@@ -1,7 +1,8 @@
-import '../model/chat_message.dart';
-import 'boxes.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
+
+import '../constants/boxes.dart';
+import '../model/chat_message.dart';
 
 class ChatRepository {
   final _uuid = const Uuid();
@@ -20,6 +21,7 @@ class ChatRepository {
     Hive.openBox(id);
   }
 
+  /// Function used to open the boxes where the recorded conversations are kept.
   void openAllBoxes() {
     final Box box = Hive.box(Boxes.boxKeys);
     for (var i = 0; i < box.length; i++) {

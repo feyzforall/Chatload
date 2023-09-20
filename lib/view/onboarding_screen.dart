@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+
 import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
+import '../constants/boxes.dart';
 import 'chat_screen.dart';
 import 'common_widgets/app_name_view.dart';
-import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -96,6 +99,7 @@ class ContinueButton extends StatelessWidget {
         height: 60,
         child: ElevatedButton(
           onPressed: () {
+            Hive.box(Boxes.showOnboarding).put('showOnBoarding', false);
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) => const ChatScreen(),

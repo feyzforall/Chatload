@@ -1,13 +1,13 @@
+import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
 import '../constants/app_strings.dart';
 import '../constants/sender.dart';
 import '../env/env.dart';
 import '../repository/chat_repository.dart';
 import '../view-model/chat_view_model.dart';
 import 'history_screen.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -68,6 +68,7 @@ class _ChatScreenState extends State<ChatScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              // Chats
               Flexible(
                 child: Observer(builder: (_) {
                   return ListView.builder(

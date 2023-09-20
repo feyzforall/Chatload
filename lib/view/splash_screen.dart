@@ -1,8 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+
+import '../constants/boxes.dart';
+import 'chat_screen.dart';
 import 'common_widgets/app_name_view.dart';
 import 'onboarding_screen.dart';
-import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,9 +22,19 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       const Duration(seconds: 3),
       () {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+        var showOnboarding = Hive.box(Boxes.showOnboarding).get(
+          'showOnBoarding',
+          defaultValue: true,
         );
+        if (showOnboarding) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const ChatScreen()),
+          );
+        }
       },
     );
   }

@@ -3,4 +3,5 @@ class Boxes {
 
   // Box where the dynamic keys to be generated for each conversation will be kept.
   static const String boxKeys = 'boxKeys';
+  static const String showOnboarding = 'showOnboarding';
 }

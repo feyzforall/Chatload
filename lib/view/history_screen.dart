@@ -1,10 +1,11 @@
-import '../constants/app_colors.dart';
-import '../constants/app_strings.dart';
-import '../model/chat_message.dart';
-import '../repository/boxes.dart';
-import 'history_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import '../constants/app_colors.dart';
+import '../constants/app_strings.dart';
+import '../constants/boxes.dart';
+import '../model/chat_message.dart';
+import 'history_detail_screen.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
