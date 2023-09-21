@@ -8,6 +8,9 @@ Chat with GPT.
   -Envied: Only I can see my api keys <br>
   -Uuid: Generate generate generate id. <br>
   -Flutter_launcher_icons: Launch app icon for me, thx. <br>
+  -Dio: Best HTTP package ever <br>
+  -Dartz: Eitheeeeeeeer (To be serious, a library that allows us to do functional programming) <br>
+  -Flutter_Spinkit: Fancy loading indicator <br>
 
 ## How You Can Start This App
   Add a .env file at the root of the project <br>
