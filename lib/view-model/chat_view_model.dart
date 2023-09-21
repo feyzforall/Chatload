@@ -1,10 +1,9 @@
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:mobx/mobx.dart';
 
 import '../constants/sender.dart';
 import '../model/chat_message.dart';
-import '../repository/chat_repository.dart';
-import '../view/common_widgets/message_view.dart';
+import '../repository/local_chat_repository.dart';
+import '../repository/remote_chat_repository.dart';
 
 part 'chat_view_model.g.dart';
 
@@ -12,60 +11,55 @@ part 'chat_view_model.g.dart';
 class ChatViewModel = _ChatViewModelBase with _$ChatViewModel;
 
 abstract class _ChatViewModelBase with Store {
+  final LocalChatRepository chatRepository;
+  final RemoteChatRepository remoteChatRepository = RemoteChatRepository();
+
   @observable
-  ObservableList<MessageView> messages = ObservableList<MessageView>();
-  final ChatRepository chatRepository;
+  ObservableList<ChatMessage> messages = ObservableList<ChatMessage>();
+
+  @observable
+  bool isLoading = false;
+
+  @observable
+  String errorMessage = "";
 
   _ChatViewModelBase({required this.chatRepository});
 
   @action
-  void sendMessage(
+  Future<void> sendMessage(
     String message,
     Sender sender,
-    OpenAI openAI,
     String chatId,
-  ) {
+  ) async {
+    isLoading = true;
     // User's Message
+    saveMessage(sender.title, message, chatId);
+
+    final response = await remoteChatRepository.askQuestion(message);
+
+    response.fold(
+      (l) => errorMessage = l.errorMessage,
+      (r) => saveMessage(Sender.bot.title, r.choices![0].message!.content!, chatId),
+    );
+
+    isLoading = false;
+  }
+
+  @action
+  void saveMessage(String sender, String message, String id) {
     ChatMessage chatMessage = ChatMessage(
-      sender: sender.title,
+      sender: Sender.bot.title,
       message: message,
     );
+
+    chatRepository.saveChat(id, chatMessage);
+
     messages.insert(
       0,
-      MessageView(
-        chatMessage: chatMessage,
+      ChatMessage(
+        message: message,
+        sender: sender,
       ),
-    );
-
-    chatRepository.saveChat(chatId, chatMessage);
-
-    final request = ChatCompleteText(
-      model: GptTurboChatModel(),
-      messages: [
-        Messages(role: Role.user, content: message),
-      ],
-      maxToken: 200,
-      temperature: 0.7,
-    );
-
-    // ChatGPT Response
-    openAI.onChatCompletion(request: request).then(
-      (value) {
-        print(request.stop);
-        ChatMessage chatMessage = ChatMessage(
-          sender: Sender.bot.title,
-          message: value!.choices[0].message!.content,
-        );
-
-        messages.insert(
-          0,
-          MessageView(
-            chatMessage: chatMessage,
-          ),
-        );
-
-        chatRepository.saveChat(chatId, chatMessage);
-      },
     );
   }
 }

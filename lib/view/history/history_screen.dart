@@ -25,7 +25,6 @@ class HistoryScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: chats.length,
               itemBuilder: (BuildContext context, int index) {
-                print(Hive.box(Boxes.chats).length);
                 if (Hive.box(chats.getAt(index)).isNotEmpty) {
                   final firstMessage = Hive.box(chats.getAt(index)).values.first as ChatMessage;
                   return ListTile(

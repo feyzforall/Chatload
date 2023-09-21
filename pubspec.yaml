@@ -38,11 +38,13 @@ dependencies:
   mobx: ^2.2.0
   mobx_codegen: ^2.4.0
   flutter_mobx: ^2.0.6+5
-  chat_gpt_sdk: ^2.2.4
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   envied: ^0.3.0+3
   uuid: ^4.0.0
+  dio: ^5.3.2
+  dartz: ^0.10.1
+  flutter_spinkit: ^5.2.0
 
 
 dev_dependencies:

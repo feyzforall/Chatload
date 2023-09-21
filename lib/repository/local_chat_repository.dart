@@ -4,7 +4,7 @@ import 'package:uuid/uuid.dart';
 import '../constants/boxes.dart';
 import '../model/chat_message.dart';
 
-class ChatRepository {
+class LocalChatRepository {
   final _uuid = const Uuid();
 
   /// This function will run as soon as the conversation starts

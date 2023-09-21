@@ -1,9 +1,7 @@
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../env/env.dart';
-import '../repository/chat_repository.dart';
+import '../repository/local_chat_repository.dart';
 import '../view/chat/chat_view.dart';
 import 'chat_view_model.dart';
 
@@ -12,7 +10,7 @@ part 'add_page_view_model.g.dart';
 class AddPageViewModel = _AddPageViewModelBase with _$AddPageViewModel;
 
 abstract class _AddPageViewModelBase with Store {
-  final ChatRepository chatRepository;
+  final LocalChatRepository chatRepository;
 
   _AddPageViewModelBase({required this.chatRepository});
 
@@ -24,13 +22,6 @@ abstract class _AddPageViewModelBase with Store {
 
   @action
   void createPage() {
-    // Define api key
-    String apiKey = Env.key;
-    // Create OpenAI instance
-    final OpenAI openAI = OpenAI.instance.build(
-      token: apiKey,
-      baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 9)),
-    );
     // Create chat box
     final chatId = chatRepository.createChat();
     // Open box
@@ -42,7 +33,6 @@ abstract class _AddPageViewModelBase with Store {
       ChatView(
         chatViewModel: ChatViewModel(chatRepository: chatRepository),
         textEditingController: TextEditingController(),
-        openAI: openAI,
         chatId: chatId,
         tabName: 'Chat-${numberOfPage}',
         isClosable: numberOfPage != 1,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../constants/app_strings.dart';
-import '../../repository/chat_repository.dart';
+import '../../repository/local_chat_repository.dart';
 import '../../view-model/add_page_view_model.dart';
 import '../../view-model/chat_view_model.dart';
 import '../history/history_screen.dart';
@@ -15,12 +15,12 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final ChatRepository chatRepository = ChatRepository();
+  final LocalChatRepository chatRepository = LocalChatRepository();
   final AddPageViewModel addPageViewModel = AddPageViewModel(
-    chatRepository: ChatRepository(),
+    chatRepository: LocalChatRepository(),
   );
   final ChatViewModel viewModel = ChatViewModel(
-    chatRepository: ChatRepository(),
+    chatRepository: LocalChatRepository(),
   );
 
   @override

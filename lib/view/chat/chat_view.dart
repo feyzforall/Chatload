@@ -1,6 +1,7 @@
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:chatload/view/common_widgets/message_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../constants/app_strings.dart';
 import '../../constants/sender.dart';
@@ -11,7 +12,6 @@ class ChatView extends StatelessWidget {
     super.key,
     required this.chatViewModel,
     required this.textEditingController,
-    required this.openAI,
     required this.chatId,
     required this.tabName,
     required this.isClosable,
@@ -20,7 +20,6 @@ class ChatView extends StatelessWidget {
 
   final ChatViewModel chatViewModel;
   final TextEditingController textEditingController;
-  final OpenAI openAI;
   final String chatId;
   final String tabName;
   final bool isClosable;
@@ -50,17 +49,25 @@ class ChatView extends StatelessWidget {
                 return ListView.builder(
                   itemCount: chatViewModel.messages.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return chatViewModel.messages[index];
+                    return MessageView(
+                      chatMessage: chatViewModel.messages[index],
+                    );
                   },
                 );
               }),
             ),
-            EnterMessageField(
-              controller: textEditingController,
-              viewModel: chatViewModel,
-              openAI: openAI,
-              chatId: chatId,
-            ),
+            Observer(
+              builder: (_) => !chatViewModel.isLoading
+                  ? EnterMessageField(
+                      controller: textEditingController,
+                      viewModel: chatViewModel,
+                      chatId: chatId,
+                    )
+                  : SpinKitWave(
+                      color: Theme.of(context).primaryColor,
+                      size: 30,
+                    ),
+            )
           ],
         ),
       ),
@@ -73,13 +80,11 @@ class EnterMessageField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.viewModel,
-    required this.openAI,
     required this.chatId,
   });
 
   final TextEditingController controller;
   final ChatViewModel viewModel;
-  final OpenAI openAI;
   final String chatId;
 
   @override
@@ -91,7 +96,6 @@ class EnterMessageField extends StatelessWidget {
           viewModel.sendMessage(
             controller.text,
             Sender.person,
-            openAI,
             chatId,
           );
           controller.clear();
@@ -107,7 +111,6 @@ class EnterMessageField extends StatelessWidget {
           child: SendButton(
             controller: controller,
             viewModel: viewModel,
-            openAI: openAI,
             chatId: chatId,
           ),
         ),
@@ -121,13 +124,12 @@ class SendButton extends StatelessWidget {
     super.key,
     required this.controller,
     required this.viewModel,
-    required this.openAI,
     required this.chatId,
   });
 
   final TextEditingController controller;
   final ChatViewModel viewModel;
-  final OpenAI openAI;
+
   final String chatId;
 
   @override
@@ -143,7 +145,6 @@ class SendButton extends StatelessWidget {
             viewModel.sendMessage(
               controller.text,
               Sender.person,
-              openAI,
               chatId,
             );
             controller.clear();
